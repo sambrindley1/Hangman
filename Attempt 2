@@ -1,0 +1,66 @@
+import random
+def get_word():
+    words = ['rarely','universe','notice', 'sugar', 'interference', 'constitution', 'we', 'minus', 'breath', 'clarify', 'take', 'recording', 'amendment', 'hut', 'tip', 'logical', 'cast', 'title', 'brief', 'none', 'relative', 'recently', 'detail', 'port', 'such', 'complex', 'bath', 'soul', 'holder', 'pleasant', 'buy', 'federal', 'lay', 'currently', 'saint', 'for', 'simple', 'deliberately', 'means', 'peace', 'prove', 'sexual', 'chief', 'department', 'bear', 'injection', 'off', 'son', 'reflect', 'fast', 'ago', 'education', 'prison', 'birthday', 'variation', 'exactly', 'expect', 'engine', 'difficulty', 'apply', 'hero', 'contemporary', 'that', 'surprised', 'fear', 'convert', 'daily', 'yours', 'pace', 'shot', 'income', 'democracy', 'albeit', 'genuinely', 'commit', 'caution', 'try', 'membership', 'elderly', 'enjoy', 'pet', 'detective', 'powerful', 'argue', 'escape', 'timetable', 'proceeding', 'sector', 'cattle', 'dissolve', 'suddenly', 'teach', 'spring', 'negotiation', 'solid', 'seek', 'enough', 'surface', 'small', 'search']
+    return random.choice(words)
+
+def play_game():
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    word = get_word()
+    letters_guessed = []
+    attempts = 7
+    guessed = False
+    
+    print ('The word contains',len(word), 'letters')
+    print ('You have 7 chances')
+    print (len(word) * '*')
+    while guessed == False and attempts > 0:
+        guess = input('Please enter your next guess: ').lower()
+        #user inputs letter
+        if len(guess) == 1:
+            if guess not in alphabet:
+                print('You have not entered a letter')
+                print ('You have ' + str(attempts) + ' attempts left')
+            elif guess in letters_guessed:
+                print ('You have already guessed that letter')
+            elif guess not in word:
+                print ('That is incorrect!')
+                letters_guessed.append (guess)
+                attempts -=1
+                print ('You have ' + str(attempts) + ' attempts left')
+            elif guess in word:
+                print ('Correct!')
+                letters_guessed.append (guess)
+                print ('You have ' + str(attempts) + ' attempts left')
+            else:
+                print ('an error has occured')
+        #user inputs word
+        elif len(guess) == len(word):
+            if guess == word:
+                print ('Congratulations you win')
+                guessed = True
+            else:
+                print ('That is incorrect')
+                attempts -=1
+                print ('You have ' + str(attempts) + ' attempts left')
+        #user inputs number of letters unequal to word
+        else:
+            print ('The length of your guess does not equal the length of the word')
+            attempts -=1
+            print ('You have ' + str(attempts) + ' attempts left')
+    
+        #asterixs
+        current = ''
+        if guessed == False:
+            for letter in word:
+                if letter in letters_guessed:
+                    current += letter
+                else:
+                    current += '*'
+            print (current)
+        
+        if current == word:
+            print ('Congratulations you win')
+            guessed = True
+        elif attempts == 0:
+            print ('You lose')
+play_game()
